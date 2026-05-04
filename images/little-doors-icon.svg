@@ -1,0 +1,7 @@
+<svg width="200" height="280" viewBox="0 0 200 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Door shape: arch top + slight corner radius bottom -->
+  <path d="M2 100 C2 46 46 2 100 2 C154 2 198 46 198 100 L198 266 C198 272 194 276 188 276 L12 276 C6 276 2 272 2 266 Z"
+        stroke="#F5B0B8" stroke-width="3" fill="none" />
+  <!-- Door knob -->
+  <circle cx="135" cy="160" r="9" fill="#FED101" />
+</svg>

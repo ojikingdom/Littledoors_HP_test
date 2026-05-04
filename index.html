@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Little Doors — Top Page Wireframe</title>
+<style>
+  /* ===== Design Tokens ===== */
+  :root {
+    --bg-primary: #FEF5F4;
+    --bg-white: #FFFFFF;
+    --text-navy: #002060;
+    --text-navy-light: rgba(0,32,96,0.6);
+    --text-navy-muted: rgba(0,32,96,0.4);
+    --brand-yellow: #FED101;
+    --brand-rose: #CE3A64;
+    --brand-rose-light: rgba(206,58,100,0.12);
+    --accent-blue: #E7F2F5;
+    --accent-peach: #FECCBF;
+    --accent-coral: #F6A58D;
+    --accent-pink: #FCA7AC;
+    --highlight-red: #D94054;
+    --radius-sm: 8px;
+    --radius-md: 16px;
+    --radius-lg: 24px;
+    --radius-xl: 40px;
+    --shadow-soft: 0 4px 32px rgba(0,32,96,0.06);
+    --shadow-card: 0 2px 16px rgba(0,32,96,0.04);
+    --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --max-w: 1200px;
+    --content-w: 720px;
+  }
+
+  /* ===== Reset & Base ===== */
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { font-size: 16px; scroll-behavior: smooth; }
+  body {
+    font-family: "Hiragino Maru Gothic ProN", "Meiryo UI", "BIZ UDGothic", sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-navy);
+    line-height: 1.9;
+    letter-spacing: 0.04em;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ===== Navigation ===== */
+  .nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: rgba(254,245,244,0);
+    backdrop-filter: blur(0px);
+    transition: background 0.6s ease, backdrop-filter 0.6s ease, box-shadow 0.6s ease;
+    padding: 0 40px;
+  }
+  .nav.scrolled {
+    background: rgba(254,245,244,0.92);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 1px 0 rgba(0,32,96,0.06);
+  }
+  .nav-inner {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 72px;
+  }
+  .nav-logo {
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-navy);
+    text-decoration: none;
+    letter-spacing: 0.06em;
+  }
+  .nav-links {
+    display: flex;
+    gap: 0;
+  }
+  .nav-links a {
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-navy-muted);
+    text-decoration: none;
+    padding: 26px 18px;
+    transition: color var(--transition);
+    position: relative;
+  }
+  .nav-links a::after {
+    content: "";
+    position: absolute;
+    bottom: 22px;
+    left: 18px;
+    right: 18px;
+    height: 1px;
+    background: var(--brand-rose);
+    transform: scaleX(0);
+    transition: transform var(--transition);
+  }
+  .nav-links a:hover { color: var(--text-navy); }
+  .nav-links a:hover::after { transform: scaleX(1); }
+
+  /* ===== Shared ===== */
+  section { padding: 120px 40px; }
+  .section-inner { max-width: var(--max-w); margin: 0 auto; }
+  .section-label {
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-navy-muted);
+    margin-bottom: 20px;
+  }
+  .section-title {
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 32px;
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    color: var(--text-navy);
+    line-height: 1.3;
+    margin-bottom: 20px;
+  }
+  .section-line {
+    width: 40px;
+    height: 1px;
+    background: var(--brand-rose);
+    opacity: 0.5;
+    margin-bottom: 48px;
+  }
+  .section-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: var(--text-navy);
+    text-decoration: none;
+    margin-top: 48px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(0,32,96,0.12);
+    transition: border-color var(--transition), color var(--transition);
+  }
+  .section-more:hover {
+    color: var(--brand-rose);
+    border-bottom-color: var(--brand-rose);
+  }
+  .section-more .arrow {
+    transition: transform var(--transition);
+    font-size: 16px;
+  }
+  .section-more:hover .arrow { transform: translateX(4px); }
+
+  /* ===== 1. Hero ===== */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 160px 40px 120px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    top: -20%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(254,204,191,0.3) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .hero::after {
+    content: "";
+    position: absolute;
+    bottom: -10%;
+    left: -5%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(231,242,245,0.4) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .hero-content { position: relative; z-index: 1; }
+  .hero-door {
+    margin: 0 auto 48px;
+  }
+  .hero-door img {
+    display: block;
+  }
+  .hero-label {
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--brand-rose);
+    margin-bottom: 32px;
+    opacity: 0.7;
+  }
+  .hero h1 {
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 56px;
+    font-weight: 200;
+    letter-spacing: 0.04em;
+    color: var(--text-navy);
+    line-height: 1.2;
+    margin-bottom: 32px;
+  }
+  .hero-sub {
+    font-size: 16px;
+    line-height: 2.2;
+    color: var(--text-navy-light);
+    max-width: 560px;
+    margin: 0 auto;
+  }
+  .hero-scroll {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-navy-muted);
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    animation: scrollBounce 2s ease-in-out infinite;
+  }
+  .hero-scroll .scroll-line {
+    width: 1px;
+    height: 32px;
+    background: linear-gradient(to bottom, var(--brand-rose), transparent);
+    opacity: 0.4;
+  }
+  @keyframes scrollBounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(6px); }
+  }
+
+  /* ===== 2. Philosophy ===== */
+  .philosophy { text-align: center; }
+  .philosophy-vision {
+    max-width: 600px;
+    margin: 0 auto 64px;
+  }
+  .philosophy-vision .vision-label {
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--brand-rose);
+    margin-bottom: 24px;
+  }
+  .philosophy-vision p {
+    font-size: 20px;
+    line-height: 2.0;
+    color: var(--text-navy);
+  }
+  .philosophy-mission-credos {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 64px;
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .philosophy-block .block-label {
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--brand-rose);
+    margin-bottom: 16px;
+  }
+  .philosophy-block p {
+    font-size: 15px;
+    line-height: 2.0;
+    color: var(--text-navy);
+  }
+  .philosophy-block ul {
+    list-style: none;
+  }
+  .philosophy-block ul li {
+    font-size: 14px;
+    line-height: 1.8;
+    padding: 6px 0;
+    color: var(--text-navy);
+  }
+  .philosophy-block ul li::before {
+    display: none;
+  }
+
+  /* ===== 3. Story (Narrative) ===== */
+  .story { background: var(--bg-white); }
+  .story-text {
+    max-width: 580px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .story-text p {
+    font-size: 15px;
+    line-height: 2.4;
+    color: var(--text-navy);
+    margin-bottom: 28px;
+  }
+  .story-text p:last-child { margin-bottom: 0; }
+
+  /* ===== 4. Service ===== */
+  .service-lead {
+    max-width: 640px;
+    margin-bottom: 64px;
+  }
+  .service-lead p {
+    font-size: 15px;
+    line-height: 2.2;
+    color: var(--text-navy);
+    margin-bottom: 16px;
+  }
+  .service-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 16px;
+  }
+  .service-card {
+    background: var(--bg-white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    padding: 40px 32px;
+    transition: transform var(--transition), box-shadow var(--transition);
+  }
+  .service-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-soft);
+  }
+  .service-card .card-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent-peach), var(--accent-coral));
+    opacity: 0.5;
+    margin-bottom: 24px;
+  }
+  .service-card h3 {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 12px;
+    line-height: 1.5;
+  }
+  .service-card p {
+    font-size: 13px;
+    color: var(--text-navy-light);
+    line-height: 1.8;
+  }
+
+  /* ===== 5. Profile ===== */
+  .profile { background: var(--bg-white); }
+  .profile-layout {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 72px;
+    align-items: center;
+  }
+  .profile-photo {
+    width: 320px;
+    height: 400px;
+    background: linear-gradient(160deg, var(--accent-peach), var(--accent-coral));
+    border-radius: var(--radius-xl);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--bg-white);
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    opacity: 0.7;
+  }
+  .profile-text h3 {
+    font-size: 28px;
+    font-weight: 400;
+    margin-bottom: 4px;
+    letter-spacing: 0.02em;
+  }
+  .profile-text .profile-brand {
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 13px;
+    color: var(--text-navy-light);
+    letter-spacing: 0.06em;
+    margin-bottom: 4px;
+  }
+  .profile-text .profile-role {
+    font-size: 13px;
+    color: var(--text-navy-light);
+    margin-bottom: 24px;
+  }
+  .profile-text .profile-bio {
+    font-size: 14px;
+    line-height: 2.0;
+    color: var(--text-navy);
+    margin-bottom: 20px;
+  }
+  .profile-creds {
+    list-style: none;
+    margin-bottom: 24px;
+  }
+  .profile-creds li {
+    font-size: 12px;
+    color: var(--text-navy-light);
+    line-height: 1.8;
+    padding-left: 14px;
+    position: relative;
+  }
+  .profile-creds li::before {
+    content: "·";
+    position: absolute;
+    left: 0;
+    color: var(--brand-rose);
+    font-weight: 700;
+  }
+
+  /* ===== 6. Works ===== */
+  .works-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+  }
+  .works-card {
+    background: var(--bg-white);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+    transition: transform var(--transition), box-shadow var(--transition);
+  }
+  .works-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-soft);
+  }
+  .works-thumb {
+    width: 100%;
+    background: var(--bg-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: var(--text-navy-muted);
+    overflow: hidden;
+    padding: 16px;
+  }
+  .works-thumb img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-sm);
+  }
+  .works-body { padding: 24px; }
+  .works-body .wk-cat {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--brand-rose);
+    margin-bottom: 8px;
+  }
+  .works-body h4 {
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.5;
+    margin-bottom: 8px;
+  }
+  .works-body p {
+    font-size: 13px;
+    color: var(--text-navy-light);
+    line-height: 1.7;
+  }
+
+  /* ===== 7. Voice ===== */
+  .voice { background: var(--bg-white); }
+  .voice-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+  }
+  .voice-card {
+    background: var(--bg-primary);
+    border-radius: var(--radius-lg);
+    padding: 40px;
+    position: relative;
+  }
+  .voice-card::before {
+    content: "\201C";
+    font-family: Georgia, serif;
+    font-size: 64px;
+    color: var(--accent-peach);
+    position: absolute;
+    top: 16px;
+    left: 28px;
+    line-height: 1;
+  }
+  .voice-card .voice-text {
+    font-size: 14px;
+    line-height: 2.0;
+    padding-top: 20px;
+    margin-bottom: 20px;
+  }
+  .voice-card .voice-author {
+    font-size: 12px;
+    color: var(--text-navy-light);
+  }
+  .voice-card .voice-author span {
+    display: block;
+    font-size: 11px;
+    color: var(--text-navy-muted);
+    margin-top: 2px;
+  }
+
+  /* ===== 8. Contact CTA ===== */
+  .contact-cta {
+    text-align: center;
+    padding: 140px 40px;
+  }
+  .contact-cta .cta-title {
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 36px;
+    font-weight: 300;
+    color: var(--text-navy);
+    margin-bottom: 20px;
+    letter-spacing: 0.04em;
+  }
+  .contact-cta .cta-sub {
+    font-size: 15px;
+    color: var(--text-navy-light);
+    line-height: 2.0;
+    max-width: 480px;
+    margin: 0 auto 48px;
+  }
+  .cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 18px 48px;
+    background: var(--text-navy);
+    color: var(--bg-white);
+    border: none;
+    border-radius: 100px;
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background var(--transition), transform var(--transition);
+  }
+  .cta-btn:hover {
+    background: var(--brand-rose);
+    transform: translateY(-2px);
+  }
+  .cta-btn .arrow { font-size: 16px; }
+
+  /* ===== Footer ===== */
+  .footer {
+    background: var(--text-navy);
+    color: rgba(255,255,255,0.5);
+    padding: 64px 40px;
+  }
+  .footer-inner {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-logo {
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.8);
+    letter-spacing: 0.08em;
+  }
+  .footer-nav {
+    display: flex;
+    gap: 28px;
+  }
+  .footer-nav a {
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    text-decoration: none;
+    transition: color var(--transition);
+  }
+  .footer-nav a:hover { color: rgba(255,255,255,0.8); }
+  .footer-copy {
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: rgba(255,255,255,0.3);
+  }
+
+  /* ===== Hamburger Menu ===== */
+  .nav-hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 8px;
+    z-index: 200;
+    background: none;
+    border: none;
+  }
+  .nav-hamburger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--text-navy);
+    border-radius: 2px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* ===== Responsive: Tablet (768px〜900px) ===== */
+  @media (max-width: 900px) {
+    section { padding: 80px 32px; }
+    .nav { padding: 0 24px; }
+    .hero { padding: 140px 32px 100px; }
+    .hero h1 { font-size: 36px; }
+    .hero-sub { font-size: 14px; }
+    .section-title { font-size: 26px; }
+
+    .philosophy-vision p { font-size: 17px; }
+    .service-cards { grid-template-columns: 1fr 1fr; gap: 20px; }
+    .profile-layout { grid-template-columns: 240px 1fr; gap: 48px; }
+    .profile-photo { width: 240px; height: 300px; }
+    .works-grid { grid-template-columns: 1fr 1fr; }
+    .voice-grid { grid-template-columns: 1fr 1fr; }
+
+    .contact-cta { padding: 100px 32px; }
+    .contact-cta .cta-title { font-size: 28px; }
+    .footer-inner { flex-direction: column; gap: 24px; text-align: center; }
+    .footer-nav { flex-wrap: wrap; justify-content: center; }
+  }
+
+  /* ===== Responsive: Phone (〜767px) ===== */
+  @media (max-width: 767px) {
+    section { padding: 64px 20px; }
+    .nav { padding: 0 16px; }
+    .nav-inner { height: 60px; }
+
+    /* Hamburger visible */
+    .nav-hamburger { display: flex; }
+    .nav-links {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(254,245,244,0.98);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      z-index: 150;
+    }
+    .nav-links.open { display: flex; }
+    .nav-links a {
+      font-size: 16px;
+      padding: 20px 0;
+      color: var(--text-navy);
+      letter-spacing: 0.15em;
+    }
+    .nav-links a::after { display: none; }
+
+    /* Hero */
+    .hero {
+      min-height: 90vh;
+      padding: 120px 20px 80px;
+    }
+    .hero h1 { font-size: 26px; line-height: 1.4; }
+    .hero-sub { font-size: 13px; line-height: 2.0; }
+    .hero-sub br { display: none; }
+    .hero-door img { width: 100px; height: auto; }
+    .hero-label { font-size: 10px; margin-bottom: 24px; }
+    .hero-scroll { display: none; }
+
+    /* Philosophy */
+    .section-title { font-size: 22px; margin-bottom: 16px; }
+    .section-label { font-size: 10px; margin-bottom: 16px; }
+    .philosophy-vision p { font-size: 15px; }
+    .philosophy-mission-credos { gap: 40px; }
+    .philosophy-block .block-label { font-size: 11px; }
+    .philosophy-block p { font-size: 14px; }
+    .philosophy-block ul li { font-size: 13px; }
+
+    /* Story */
+    .story-text p { font-size: 14px; line-height: 2.2; }
+    .story-text p br { display: none; }
+
+    /* Service */
+    .service-lead p { font-size: 14px; }
+    .service-cards { grid-template-columns: 1fr; gap: 16px; }
+    .service-card { padding: 32px 24px; }
+    .service-card h3 { font-size: 15px; }
+
+    /* Profile */
+    .profile-layout { grid-template-columns: 1fr; gap: 32px; }
+    .profile-photo { width: 100%; height: 260px; border-radius: var(--radius-lg); }
+    .profile-text h3 { font-size: 22px; }
+    .profile-text .profile-bio { font-size: 13px; }
+
+    /* Works */
+    .works-grid { grid-template-columns: 1fr; gap: 20px; }
+    .works-body h4 { font-size: 14px; }
+
+    /* Voice */
+    .voice-grid { grid-template-columns: 1fr; gap: 20px; }
+    .voice-card { padding: 32px 24px; }
+    .voice-card::before { font-size: 48px; top: 12px; left: 20px; }
+    .voice-card .voice-text { font-size: 13px; }
+
+    /* Contact CTA */
+    .contact-cta { padding: 80px 20px; }
+    .contact-cta .cta-title { font-size: 24px; }
+    .contact-cta .cta-sub { font-size: 13px; }
+    .contact-cta .cta-sub br { display: none; }
+    .cta-btn { padding: 16px 36px; font-size: 13px; }
+
+    /* Footer */
+    .footer { padding: 48px 20px; }
+    .footer-inner { flex-direction: column; gap: 20px; text-align: center; }
+    .footer-nav { flex-wrap: wrap; justify-content: center; gap: 16px; }
+
+    /* Section more link */
+    .section-more { font-size: 12px; margin-top: 32px; }
+  }
+
+  /* ===== Scroll Animation ===== */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .fade-in-delay { transition-delay: 0.15s; }
+  .fade-in-delay-2 { transition-delay: 0.3s; }
+</style>
+</head>
+<body>
+
+<!-- ===== NAVIGATION ===== -->
+<nav class="nav" id="mainNav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">Little Doors</a>
+    <button class="nav-hamburger" id="hamburger" aria-label="メニューを開く">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="navLinks">
+      <a href="#philosophy">About</a>
+      <a href="#service">Services</a>
+      <a href="#works">Works</a>
+      <a href="#voice">Voice</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== 1. HERO ===== -->
+<section class="hero" id="hero">
+  <div class="hero-content">
+    <div class="hero-door fade-in">
+      <img src="images/little-doors-icon.svg" alt="Little Doors" width="140" height="200">
+    </div>
+    <p class="hero-label fade-in">Brand &amp; Character Consulting</p>
+    <h1 class="fade-in fade-in-delay">キャラクターを、<br>企業と顧客をつなぐ架け橋に。</h1>
+    <p class="hero-sub fade-in fade-in-delay-2">キャラクターが織りなす世界観を通してブランドの想いを届け、<br>人の心の中で広がり続けるブランドを育む。</p>
+  </div>
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ===== 2. PHILOSOPHY ===== -->
+<section class="philosophy" id="philosophy">
+  <div class="section-inner">
+    <p class="section-label fade-in">Philosophy</p>
+    <h2 class="section-title fade-in" style="text-align:center;margin-bottom:12px">About Little Doors</h2>
+    <div class="section-line fade-in" style="margin:0 auto 64px"></div>
+
+    <div class="philosophy-vision fade-in">
+      <p class="vision-label">Vision</p>
+      <p>キャラクターを、企業と顧客をつなぐ架け橋に。<br>キャラクターが織りなす世界観を通してブランドの想いを届け、<br>人の心の中で広がり続けるブランドを育む。</p>
+    </div>
+
+    <div class="philosophy-mission-credos fade-in">
+      <div class="philosophy-block">
+        <p class="block-label">Mission</p>
+        <p>キャラクターやブランドが育ち続ける土壌をつくる。</p>
+      </div>
+      <div class="philosophy-block">
+        <p class="block-label">Credos</p>
+        <ul>
+          <li>人の想いを大切にする</li>
+          <li>関わる人を大切にする</li>
+          <li>本質を見つけるまで考え抜く</li>
+          <li>期待を超える価値を届ける</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="text-align:center">
+      <a href="subpages-wireframe.html#about" class="section-more fade-in">
+        Read More <span class="arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 3. STORY (Narrative) ===== -->
+<section class="story" id="story">
+  <div class="section-inner">
+    <div class="story-text">
+      <p class="section-label fade-in" style="text-align:center">Story</p>
+
+      <p class="fade-in">キャラクターやブランドに関わる中で感じてきたのは、<br>長く続いているものには、必ず大切にされている考え方があるということでした。</p>
+
+      <p class="fade-in">見た目の表現だけでなく、<br>その背景にある想いや意味が共有されていると、<br>ブランドは少しずつ広がっていきます。</p>
+
+      <p class="fade-in">商品や体験、コミュニケーションへと展開しながら、<br>関わる人の中で育っていく。<br>そのプロセスに多く立ち会ってきました。</p>
+
+      <p class="fade-in">一方で、<br>魅力的なアイデアや想いがあっても、<br>どのように形にすればよいか迷ってしまう場面も多く見てきました。</p>
+
+      <p class="fade-in">だからこそ、<br>想いを丁寧にひもとき、<br>育ち続けていくための土壌を整えることに意味があると感じています。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 4. SERVICE ===== -->
+<section class="service" id="service">
+  <div class="section-inner">
+    <p class="section-label fade-in">Services</p>
+    <h2 class="section-title fade-in">Services</h2>
+    <div class="section-line fade-in"></div>
+
+    <div class="service-lead fade-in">
+      <p>キャラクターの企画・開発から世界観の整理、商品・サービス、体験、コミュニケーションへの展開まで、一貫した視点で伴走します。</p>
+      <p>ブランドやキャラクターの想いを丁寧にひもときながら、無理なく広がり、長く育ち続ける形を一緒に考えます。</p>
+    </div>
+
+    <div class="service-cards">
+      <div class="service-card fade-in">
+        <div class="card-icon"></div>
+        <h3>ブランド・キャラクター<br>コンセプト設計</h3>
+        <p>ブランドの方向性やコンセプトを整理し、自分たちらしさを言語化。キャラクターの世界観を設計します。</p>
+      </div>
+      <div class="service-card fade-in fade-in-delay">
+        <div class="card-icon"></div>
+        <h3>世界観の展開支援</h3>
+        <p>キャラクターやブランドを商品・サービスや体験に展開。一貫性のある広がりを一緒に考えます。</p>
+      </div>
+      <div class="service-card fade-in fade-in-delay-2">
+        <div class="card-icon"></div>
+        <h3>ブランド育成<br>コンサルティング</h3>
+        <p>長く愛されるブランドを育てるための土壌を整え、継続的な成長を伴走支援します。</p>
+      </div>
+    </div>
+
+    <a href="subpages-wireframe.html#services" class="section-more fade-in">
+      View All Services <span class="arrow">→</span>
+    </a>
+  </div>
+</section>
+
+<!-- ===== 5. PROFILE ===== -->
+<section class="profile" id="profile">
+  <div class="section-inner">
+    <div class="profile-layout">
+      <div class="profile-photo fade-in">Photo</div>
+      <div class="profile-text">
+        <p class="section-label fade-in">Profile</p>
+        <h3 class="fade-in">薮田美和</h3>
+        <p class="profile-brand fade-in">Little Doors</p>
+        <p class="profile-role fade-in">ブランド／キャラクターコンサルタント</p>
+        <ul class="profile-creds fade-in">
+          <li>INPIT（経済産業省・特許庁所管）認定 ブランド専門家</li>
+          <li>一般財団法人ブランド・マネージャー認定協会 2級資格</li>
+        </ul>
+        <p class="profile-bio fade-in">大手テーマパーク運営会社にて18年間、商品企画・開発、ブランド企画に従事。キャラクターの世界観設計から商品展開、体験イベント、プロモーション施策まで一貫して携わり、継続的に育っていくブランドづくりに取り組んできました。</p>
+        <p class="profile-bio fade-in">キャラクターやブランドは、つくって終わりではなく、育っていくものだと感じています。</p>
+        <a href="subpages-wireframe.html#about" class="section-more fade-in">
+          Full Profile <span class="arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 6. WORKS ===== -->
+<section class="works" id="works">
+  <div class="section-inner">
+    <p class="section-label fade-in">Works</p>
+    <h2 class="section-title fade-in">取引実績</h2>
+    <div class="section-line fade-in"></div>
+
+    <div class="works-grid">
+      <div class="works-card fade-in">
+        <div class="works-thumb"><img src="images/works-tokou.png" alt="導入事例：株式会社トコウ様"></div>
+        <div class="works-body">
+          <p class="wk-cat">Character Branding</p>
+          <h4>株式会社トコウ様</h4>
+          <p>企業キャラクターとしてリトルドアーズの新規キャラクターを制作・導入いただきました。</p>
+        </div>
+      </div>
+      <div class="works-card fade-in fade-in-delay">
+        <div class="works-thumb"><img src="images/works-harmonylink.png" alt="導入事例：株式会社ハーモニーリンク様"></div>
+        <div class="works-body">
+          <p class="wk-cat">Character Branding</p>
+          <h4>株式会社ハーモニーリンク様</h4>
+          <p>リトルフレンドとしてリトルドアーズのキャラクターを導入いただきました。講義資料や様々な場面に登場しています。</p>
+        </div>
+      </div>
+    </div>
+
+    <a href="subpages-wireframe.html#works" class="section-more fade-in">
+      View All Works <span class="arrow">→</span>
+    </a>
+  </div>
+</section>
+
+<!-- ===== 7. VOICE ===== -->
+<section class="voice" id="voice">
+  <div class="section-inner">
+    <p class="section-label fade-in" style="text-align:center">Voice</p>
+    <h2 class="section-title fade-in" style="text-align:center;margin-bottom:12px">お客さまの声</h2>
+    <div class="section-line fade-in" style="margin:0 auto 64px"></div>
+
+    <div class="voice-grid">
+      <div class="voice-card fade-in">
+        <p class="voice-text">自分たちの想いをうまく言葉にできなかったのですが、丁寧にひもといてくださり、「これだ」と思えるコンセプトが見つかりました。</p>
+        <div class="voice-author">
+          ご担当者さま
+          <span>食品メーカー / ブランド戦略担当</span>
+        </div>
+      </div>
+      <div class="voice-card fade-in fade-in-delay">
+        <p class="voice-text">キャラクターをつくった後、どう活かしていくかが分からなかったのですが、世界観を起点に展開の道筋が見えるようになりました。</p>
+        <div class="voice-author">
+          ご担当者さま
+          <span>地方自治体 / 広報担当</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center">
+      <a href="subpages-wireframe.html#voice" class="section-more fade-in">
+        View All Voices <span class="arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 8. CONTACT CTA ===== -->
+<section class="contact-cta" id="contact">
+  <p class="section-label fade-in" style="text-align:center">Contact</p>
+  <h2 class="cta-title fade-in">お気軽にご相談ください</h2>
+  <p class="cta-sub fade-in">ブランドやキャラクターに関するお悩みやご相談、<br>お仕事のご依頼など、まずはお気軽にお問い合わせください。</p>
+  <a href="subpages-wireframe.html#contact" class="cta-btn fade-in">
+    Contact Us <span class="arrow">→</span>
+  </a>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="footer-inner">
+    <span class="footer-logo">Little Doors</span>
+    <nav class="footer-nav">
+      <a href="#philosophy">About</a>
+      <a href="#service">Services</a>
+      <a href="#works">Works</a>
+      <a href="#voice">Voice</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <span class="footer-copy">&copy; 2026 Little Doors. All rights reserved.</span>
+  </div>
+</footer>
+
+<!-- ===== Scripts ===== -->
+<script>
+  // Hamburger menu
+  const hamburger = document.getElementById('hamburger');
+  const navLinksEl = document.getElementById('navLinks');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    navLinksEl.classList.toggle('open');
+    document.body.style.overflow = navLinksEl.classList.contains('open') ? 'hidden' : '';
+  });
+  navLinksEl.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      navLinksEl.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+
+  // Scroll animation
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -32px 0px' });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Nav background on scroll
+  const nav = document.getElementById('mainNav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // Active nav link
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 120) current = s.id;
+    });
+    navLinks.forEach(link => {
+      link.style.color = '';
+      if (link.getAttribute('href') === '#' + current) link.style.color = 'var(--text-navy)';
+    });
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1317 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Little Doors — Sub Pages Wireframe</title>
+<style>
+  /* ===== Design Tokens ===== */
+  :root {
+    --bg-primary: #FEF5F4;
+    --bg-white: #FFFFFF;
+    --text-navy: #002060;
+    --text-navy-light: rgba(0,32,96,0.6);
+    --text-navy-muted: rgba(0,32,96,0.4);
+    --brand-yellow: #FED101;
+    --brand-rose: #CE3A64;
+    --brand-rose-light: rgba(206,58,100,0.12);
+    --accent-blue: #E7F2F5;
+    --accent-peach: #FECCBF;
+    --accent-coral: #F6A58D;
+    --accent-pink: #FCA7AC;
+    --highlight-red: #D94054;
+    --radius-sm: 8px;
+    --radius-md: 16px;
+    --radius-lg: 24px;
+    --radius-xl: 40px;
+    --shadow-soft: 0 4px 32px rgba(0,32,96,0.06);
+    --shadow-card: 0 2px 16px rgba(0,32,96,0.04);
+    --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --max-w: 1200px;
+    --content-w: 720px;
+  }
+
+  /* ===== Reset & Base ===== */
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { font-size: 16px; scroll-behavior: smooth; }
+  body {
+    font-family: "Hiragino Maru Gothic ProN", "Meiryo UI", "BIZ UDGothic", sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-navy);
+    line-height: 1.9;
+    letter-spacing: 0.04em;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ===== Page Navigation (sticky tabs) ===== */
+  .page-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(254,245,244,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0,32,96,0.06);
+    padding: 0 24px;
+  }
+  .page-nav-inner {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    height: 56px;
+    overflow-x: auto;
+  }
+  .page-nav a {
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-navy-muted);
+    text-decoration: none;
+    padding: 18px 20px;
+    white-space: nowrap;
+    transition: color var(--transition);
+    border-bottom: 2px solid transparent;
+  }
+  .page-nav a:hover, .page-nav a.active {
+    color: var(--text-navy);
+    border-bottom-color: var(--brand-rose);
+  }
+  .page-nav .logo {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-navy);
+    margin-right: 40px;
+    letter-spacing: 0.08em;
+  }
+
+  /* ===== Shared Section Styles ===== */
+  .page-section { padding: 120px 24px; }
+  .page-section + .page-section { border-top: 1px solid rgba(0,32,96,0.04); }
+  .section-inner { max-width: var(--max-w); margin: 0 auto; }
+  .content-narrow { max-width: var(--content-w); margin: 0 auto; }
+
+  /* Page Header */
+  .page-header {
+    text-align: center;
+    margin-bottom: 96px;
+  }
+  .page-header .page-label {
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-navy-muted);
+    margin-bottom: 16px;
+  }
+  .page-header h1 {
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 48px;
+    font-weight: 300;
+    letter-spacing: 0.06em;
+    color: var(--text-navy);
+    line-height: 1.2;
+  }
+  .page-header .header-line {
+    width: 40px;
+    height: 1px;
+    background: var(--brand-rose);
+    margin: 32px auto 0;
+    opacity: 0.5;
+  }
+
+  /* Section Label (small) */
+  .section-label {
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-navy-muted);
+    margin-bottom: 24px;
+  }
+
+  /* Section Title */
+  .section-title {
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 28px;
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    color: var(--text-navy);
+    line-height: 1.4;
+    margin-bottom: 48px;
+  }
+
+  /* Body text */
+  .body-text {
+    font-size: 15px;
+    line-height: 2.0;
+    color: var(--text-navy);
+    margin-bottom: 24px;
+  }
+  .body-text:last-child { margin-bottom: 0; }
+
+  /* ===== ABOUT PAGE ===== */
+  #about { background: var(--bg-primary); }
+
+  /* Philosophy Section */
+  .philosophy-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 72px;
+    margin-bottom: 96px;
+  }
+  .philosophy-item { text-align: center; }
+  .philosophy-item .item-label {
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--brand-rose);
+    margin-bottom: 20px;
+  }
+  .philosophy-item .item-text {
+    font-size: 18px;
+    line-height: 2.0;
+    color: var(--text-navy);
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  /* Credos */
+  .credos-list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px 32px;
+    margin-top: 16px;
+  }
+  .credos-list li {
+    font-size: 14px;
+    color: var(--text-navy);
+    position: relative;
+    padding-left: 16px;
+  }
+  .credos-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent-coral);
+    opacity: 0.6;
+    transform: translateY(-50%);
+  }
+
+  /* Narrative */
+  .narrative-section {
+    margin-bottom: 120px;
+    padding: 80px 0;
+    border-top: 1px solid rgba(0,32,96,0.04);
+    border-bottom: 1px solid rgba(0,32,96,0.04);
+  }
+  .narrative-text {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .narrative-text p {
+    font-size: 15px;
+    line-height: 2.2;
+    color: var(--text-navy);
+    margin-bottom: 32px;
+  }
+  .narrative-text p:last-child { margin-bottom: 0; }
+
+  /* Profile */
+  .profile-section { margin-bottom: 96px; }
+  .profile-card {
+    background: var(--bg-white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+    padding: 64px;
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 64px;
+    align-items: start;
+  }
+  .profile-photo {
+    width: 280px;
+    height: 340px;
+    background: linear-gradient(160deg, var(--accent-peach), var(--accent-coral));
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--bg-white);
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    opacity: 0.7;
+  }
+  .profile-info h3 {
+    font-size: 24px;
+    font-weight: 400;
+    margin-bottom: 4px;
+  }
+  .profile-info .profile-brand {
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--text-navy-light);
+    letter-spacing: 0.06em;
+    margin-bottom: 4px;
+  }
+  .profile-info .profile-role {
+    font-size: 13px;
+    color: var(--text-navy-light);
+    margin-bottom: 20px;
+  }
+  .profile-credentials {
+    list-style: none;
+    margin-bottom: 32px;
+  }
+  .profile-credentials li {
+    font-size: 13px;
+    color: var(--text-navy-light);
+    line-height: 1.8;
+    padding-left: 16px;
+    position: relative;
+  }
+  .profile-credentials li::before {
+    content: "·";
+    position: absolute;
+    left: 0;
+    color: var(--brand-rose);
+    font-weight: 700;
+  }
+  .profile-bio p {
+    font-size: 14px;
+    line-height: 2.0;
+    color: var(--text-navy);
+    margin-bottom: 20px;
+  }
+  .profile-bio p:last-child { margin-bottom: 0; }
+
+  /* Works / 取引実績 */
+  .works-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 48px;
+  }
+  .works-card {
+    background: var(--bg-white);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+    transition: transform var(--transition), box-shadow var(--transition);
+  }
+  .works-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-soft);
+  }
+  .works-card-thumb {
+    width: 100%;
+    aspect-ratio: 16/10;
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-peach));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: var(--text-navy-muted);
+    letter-spacing: 0.06em;
+  }
+  .works-card-body {
+    padding: 24px;
+  }
+  .works-card-body .card-category {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--brand-rose);
+    margin-bottom: 8px;
+  }
+  .works-card-body h4 {
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.6;
+    margin-bottom: 8px;
+  }
+  .works-card-body p {
+    font-size: 13px;
+    color: var(--text-navy-light);
+    line-height: 1.7;
+  }
+
+  /* ===== SERVICES PAGE ===== */
+  #services { background: var(--bg-primary); }
+
+  .service-lead {
+    max-width: 640px;
+    margin: 0 auto 96px;
+    text-align: center;
+  }
+  .service-lead p {
+    font-size: 16px;
+    line-height: 2.2;
+    color: var(--text-navy);
+  }
+
+  /* Target / このような方に */
+  .target-section {
+    margin-bottom: 96px;
+  }
+  .target-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    margin-top: 48px;
+  }
+  .target-group {
+    background: var(--bg-white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    padding: 40px;
+  }
+  .target-group h4 {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    color: var(--brand-rose);
+    margin-bottom: 24px;
+    text-transform: uppercase;
+  }
+  .target-list {
+    list-style: none;
+  }
+  .target-list li {
+    font-size: 14px;
+    line-height: 1.8;
+    padding: 10px 0;
+    padding-left: 20px;
+    position: relative;
+    border-bottom: 1px solid rgba(0,32,96,0.04);
+  }
+  .target-list li:last-child { border-bottom: none; }
+  .target-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 20px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent-coral);
+    opacity: 0.5;
+  }
+
+  /* Future / みなさんが手にする未来 */
+  .future-section { margin-bottom: 0; }
+  .future-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    margin-top: 48px;
+  }
+  .future-card {
+    background: var(--bg-white);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-card);
+    padding: 32px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    transition: transform var(--transition);
+  }
+  .future-card:hover { transform: translateY(-2px); }
+  .future-card .future-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent-peach), var(--accent-coral));
+    opacity: 0.4;
+    flex-shrink: 0;
+  }
+  .future-card p {
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--text-navy);
+  }
+
+  /* ===== WORKS PAGE ===== */
+  #works { background: var(--bg-white); }
+  .works-filter {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 48px;
+    flex-wrap: wrap;
+  }
+  .works-filter button {
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    padding: 8px 20px;
+    border: 1px solid rgba(0,32,96,0.12);
+    border-radius: 100px;
+    background: transparent;
+    color: var(--text-navy-light);
+    cursor: pointer;
+    transition: all var(--transition);
+  }
+  .works-filter button.active,
+  .works-filter button:hover {
+    background: var(--text-navy);
+    color: var(--bg-white);
+    border-color: var(--text-navy);
+  }
+  .works-full-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+  }
+  .works-full-card {
+    background: var(--bg-primary);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: transform var(--transition);
+  }
+  .works-full-card:hover { transform: translateY(-4px); }
+  .works-full-thumb {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: linear-gradient(135deg, var(--accent-blue), rgba(254,204,191,0.5));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: var(--text-navy-muted);
+  }
+  .works-full-body {
+    padding: 32px;
+  }
+  .works-full-body .wf-cat {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--brand-rose);
+    margin-bottom: 12px;
+  }
+  .works-full-body h3 {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.5;
+    margin-bottom: 12px;
+  }
+  .works-full-body p {
+    font-size: 13px;
+    color: var(--text-navy-light);
+    line-height: 1.8;
+  }
+
+  /* ===== VOICE PAGE ===== */
+  #voice { background: var(--bg-primary); }
+  .voice-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+    margin-top: 64px;
+  }
+  .voice-card {
+    background: var(--bg-white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    padding: 48px;
+    position: relative;
+  }
+  .voice-card::before {
+    content: "\201C";
+    font-family: Georgia, serif;
+    font-size: 72px;
+    color: var(--accent-peach);
+    position: absolute;
+    top: 24px;
+    left: 32px;
+    line-height: 1;
+  }
+  .voice-card .voice-text {
+    font-size: 14px;
+    line-height: 2.0;
+    margin-bottom: 24px;
+    padding-top: 24px;
+  }
+  .voice-card .voice-author {
+    font-size: 13px;
+    color: var(--text-navy-light);
+  }
+  .voice-card .voice-author span {
+    display: block;
+    font-size: 11px;
+    color: var(--text-navy-muted);
+    margin-top: 4px;
+    letter-spacing: 0.04em;
+  }
+
+  /* ===== CONTACT PAGE ===== */
+  #contact { background: var(--bg-white); }
+  .contact-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+  .contact-text h3 {
+    font-size: 20px;
+    font-weight: 400;
+    margin-bottom: 24px;
+    line-height: 1.6;
+  }
+  .contact-text p {
+    font-size: 14px;
+    line-height: 2.0;
+    color: var(--text-navy-light);
+    margin-bottom: 20px;
+  }
+  .contact-info-list {
+    list-style: none;
+    margin-top: 32px;
+  }
+  .contact-info-list li {
+    font-size: 13px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(0,32,96,0.06);
+    display: flex;
+    gap: 16px;
+  }
+  .contact-info-list .ci-label {
+    font-weight: 500;
+    color: var(--text-navy-muted);
+    min-width: 80px;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .contact-form {
+    background: var(--bg-primary);
+    border-radius: var(--radius-lg);
+    padding: 48px;
+  }
+  .form-group {
+    margin-bottom: 24px;
+  }
+  .form-group label {
+    display: block;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    color: var(--text-navy-light);
+    margin-bottom: 8px;
+  }
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid rgba(0,32,96,0.1);
+    border-radius: var(--radius-sm);
+    background: var(--bg-white);
+    font-family: inherit;
+    font-size: 14px;
+    color: var(--text-navy);
+    outline: none;
+    transition: border-color var(--transition);
+  }
+  .form-group input:focus,
+  .form-group textarea:focus {
+    border-color: var(--brand-rose);
+  }
+  .form-group textarea { min-height: 120px; resize: vertical; }
+  .form-submit {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 40px;
+    background: var(--text-navy);
+    color: var(--bg-white);
+    border: none;
+    border-radius: 100px;
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: background var(--transition);
+  }
+  .form-submit:hover { background: var(--brand-rose); }
+
+  /* ===== Footer ===== */
+  .site-footer {
+    background: var(--text-navy);
+    color: rgba(255,255,255,0.5);
+    padding: 64px 24px;
+    text-align: center;
+  }
+  .footer-logo {
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.8);
+    letter-spacing: 0.08em;
+    margin-bottom: 24px;
+  }
+  .footer-nav {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    margin-bottom: 32px;
+  }
+  .footer-nav a {
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    text-decoration: none;
+    transition: color var(--transition);
+  }
+  .footer-nav a:hover { color: rgba(255,255,255,0.8); }
+  .footer-copy {
+    font-size: 11px;
+    letter-spacing: 0.06em;
+  }
+
+  /* ===== Divider ===== */
+  .page-divider {
+    height: 120px;
+    background: var(--bg-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .page-divider .divider-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--brand-rose);
+    opacity: 0.3;
+  }
+
+  /* ===== Hamburger Menu ===== */
+  .page-nav-hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 8px;
+    z-index: 200;
+    background: none;
+    border: none;
+  }
+  .page-nav-hamburger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--text-navy);
+    border-radius: 2px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+  .page-nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .page-nav-hamburger.open span:nth-child(2) { opacity: 0; }
+  .page-nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* ===== Responsive: Tablet (768px〜900px) ===== */
+  @media (max-width: 900px) {
+    .page-section { padding: 80px 32px; }
+    .page-header h1 { font-size: 36px; }
+    .page-header { margin-bottom: 64px; }
+    .section-title { font-size: 24px; }
+    .profile-card { grid-template-columns: 220px 1fr; gap: 40px; padding: 48px; }
+    .profile-photo { width: 220px; height: 280px; }
+    .target-grid { grid-template-columns: 1fr 1fr; }
+    .works-full-grid { grid-template-columns: 1fr 1fr; }
+    .voice-grid { grid-template-columns: 1fr 1fr; }
+    .contact-layout { grid-template-columns: 1fr; gap: 48px; }
+  }
+
+  /* ===== Responsive: Phone (〜767px) ===== */
+  @media (max-width: 767px) {
+    .page-section { padding: 56px 20px; }
+    .page-nav { padding: 0 16px; }
+
+    /* Hamburger visible */
+    .page-nav-hamburger { display: flex; }
+    .page-nav-inner {
+      position: relative;
+    }
+    .page-nav-inner a:not(.logo) {
+      display: none;
+    }
+    .page-nav-inner.open a:not(.logo) {
+      display: block;
+    }
+    .page-nav-inner.open {
+      flex-wrap: wrap;
+      height: auto;
+      padding-bottom: 12px;
+    }
+    .page-nav-inner.open a:not(.logo) {
+      width: 100%;
+      text-align: center;
+      padding: 12px 0;
+      font-size: 14px;
+    }
+
+    /* Page header */
+    .page-header h1 { font-size: 28px; }
+    .page-header { margin-bottom: 48px; }
+    .section-title { font-size: 20px; margin-bottom: 32px; }
+    .section-label { font-size: 10px; }
+    .body-text { font-size: 14px; }
+
+    /* Philosophy */
+    .philosophy-item .item-text { font-size: 15px; }
+    .credos-list { flex-direction: column; align-items: center; gap: 8px; }
+    .narrative-section { padding: 48px 0; margin-bottom: 64px; }
+    .narrative-text p { font-size: 14px; line-height: 2.0; }
+
+    /* Profile */
+    .profile-card { grid-template-columns: 1fr; padding: 32px 24px; gap: 32px; }
+    .profile-photo { width: 100%; height: 220px; }
+    .profile-info h3 { font-size: 20px; }
+    .profile-bio p { font-size: 13px; }
+    .profile-credentials li { font-size: 12px; }
+
+    /* Works */
+    .works-grid { grid-template-columns: 1fr; }
+    .works-full-grid { grid-template-columns: 1fr; gap: 20px; }
+    .works-filter { gap: 6px; }
+    .works-filter button { font-size: 11px; padding: 6px 14px; }
+
+    /* Services */
+    .service-lead p { font-size: 14px; }
+    .target-grid { grid-template-columns: 1fr; gap: 20px; }
+    .target-group { padding: 28px 24px; }
+    .target-list li { font-size: 13px; }
+    .future-grid { grid-template-columns: 1fr; gap: 16px; }
+    .future-card { padding: 24px; }
+    .future-card p { font-size: 13px; }
+
+    /* Voice */
+    .voice-grid { grid-template-columns: 1fr; gap: 20px; }
+    .voice-card { padding: 32px 24px; }
+    .voice-card::before { font-size: 48px; top: 12px; left: 16px; }
+    .voice-card .voice-text { font-size: 13px; }
+
+    /* Contact */
+    .contact-layout { grid-template-columns: 1fr; gap: 40px; }
+    .contact-text h3 { font-size: 18px; }
+    .contact-form { padding: 32px 24px; }
+    .form-submit { width: 100%; justify-content: center; }
+
+    /* Footer */
+    .site-footer { padding: 48px 20px; }
+    .footer-nav { flex-wrap: wrap; gap: 16px; }
+
+    /* Page divider */
+    .page-divider { height: 64px; }
+  }
+
+  /* ===== Scroll Animation ===== */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ PAGE NAV ============ -->
+<nav class="page-nav">
+  <div class="page-nav-inner" id="subNavInner">
+    <a href="#" class="logo">Little Doors</a>
+    <button class="page-nav-hamburger" id="subHamburger" aria-label="メニューを開く">
+      <span></span><span></span><span></span>
+    </button>
+    <a href="#about" class="active">About</a>
+    <a href="#services">Services</a>
+    <a href="#works">Works</a>
+    <a href="#voice">Voice</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- ============================================================ -->
+<!-- ABOUT PAGE                                                    -->
+<!-- ============================================================ -->
+<section id="about" class="page-section">
+  <div class="section-inner">
+
+    <!-- Page Header -->
+    <div class="page-header fade-in">
+      <p class="page-label">About</p>
+      <h1>Philosophy</h1>
+      <div class="header-line"></div>
+    </div>
+
+    <!-- Philosophy: Vision / Mission / Credos -->
+    <div class="philosophy-grid fade-in">
+
+      <div class="philosophy-item">
+        <p class="item-label">Vision</p>
+        <p class="item-text">キャラクターを、企業と顧客をつなぐ架け橋に。<br>キャラクターが織りなす世界観を通してブランドの想いを届け、<br>人の心の中で広がり続けるブランドを育む。</p>
+      </div>
+
+      <div class="philosophy-item">
+        <p class="item-label">Mission</p>
+        <p class="item-text">キャラクターやブランドが育ち続ける土壌をつくる。</p>
+      </div>
+
+      <div class="philosophy-item">
+        <p class="item-label">Credos</p>
+        <ul class="credos-list">
+          <li>人の想いを大切にする</li>
+          <li>関わる人を大切にする</li>
+          <li>本質を見つけるまで考え抜く</li>
+          <li>期待を超える価値を届ける</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Narrative -->
+    <div class="narrative-section fade-in">
+      <div class="narrative-text">
+        <p>キャラクターやブランドに関わる中で感じてきたのは、<br>長く続いているものには、必ず大切にされている考え方があるということでした。</p>
+        <p>見た目の表現だけでなく、<br>その背景にある想いや意味が共有されていると、<br>ブランドは少しずつ広がっていきます。</p>
+        <p>商品や体験、コミュニケーションへと展開しながら、<br>関わる人の中で育っていく。</p>
+        <p>そのプロセスに多く立ち会ってきました。</p>
+        <p>一方で、<br>魅力的なアイデアや想いがあっても、<br>どのように形にすればよいか迷ってしまう場面も多く見てきました。</p>
+        <p>だからこそ、<br>想いを丁寧にひもとき、<br>育ち続けていくための土壌を整えることに意味があると感じています。</p>
+      </div>
+    </div>
+
+    <!-- Profile -->
+    <div class="profile-section fade-in">
+      <p class="section-label">Profile</p>
+      <h2 class="section-title">会社概要</h2>
+
+      <div class="profile-card">
+        <div class="profile-photo">Photo</div>
+        <div class="profile-info">
+          <p class="section-label" style="margin-bottom:12px">略歴</p>
+          <h3>薮田美和</h3>
+          <p class="profile-brand">Little Doors</p>
+          <p class="profile-role">ブランド／キャラクターコンサルタント</p>
+          <ul class="profile-credentials">
+            <li>INPIT（経済産業省・特許庁所管）認定 ブランド専門家</li>
+            <li>一般財団法人ブランド・マネージャー認定協会 2級資格</li>
+          </ul>
+          <div class="profile-bio">
+            <p>大手テーマパーク運営会社にて18年間、商品企画・開発、ブランド企画に従事。キャラクターの世界観設計から商品展開、体験イベント、プロモーション施策まで一貫して携わり、継続的に育っていくブランドづくりに取り組んできました。担当プロジェクトでは、キャラクターの世界観を起点に商品や体験へと広げていくことで、長く愛されるブランドの基盤づくりを経験しました。</p>
+            <p>キャラクターやブランドは、つくって終わりではなく、育っていくものだと感じています。見た目の表現だけでなく、その背景にある想いや意味が共有されることで、商品や体験、コミュニケーションへと自然に広がり、関わる人の中で少しずつ育っていきます。</p>
+            <p>ブランドやキャラクターの中にある想いを丁寧にひもとき、世界観として整理しながら、商品・サービス、体験、コミュニケーションへと展開できる形を一緒に考えていきます。長く育ち続けるブランドの土壌を整えることを大切にしています。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 取引実績 (preview) -->
+    <div class="fade-in">
+      <p class="section-label">Track Record</p>
+      <h2 class="section-title">取引実績</h2>
+      <div class="works-grid">
+        <div class="works-card">
+          <div class="works-card-thumb">Project Image</div>
+          <div class="works-card-body">
+            <p class="card-category">Character Branding</p>
+            <h4>キャラクター世界観設計</h4>
+            <p>ブランドの想いをキャラクターの世界観として形にしたプロジェクト</p>
+          </div>
+        </div>
+        <div class="works-card">
+          <div class="works-card-thumb">Project Image</div>
+          <div class="works-card-body">
+            <p class="card-category">Brand Strategy</p>
+            <h4>ブランド体験の展開支援</h4>
+            <p>世界観を商品・サービス・体験へと一貫して広げた事例</p>
+          </div>
+        </div>
+        <div class="works-card">
+          <div class="works-card-thumb">Project Image</div>
+          <div class="works-card-body">
+            <p class="card-category">Consultation</p>
+            <h4>キャラクター活用コンサルティング</h4>
+            <p>既存キャラクターの活かし方を整理し、育て続ける仕組みを構築</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="page-divider"><div class="divider-dot"></div></div>
+
+<!-- ============================================================ -->
+<!-- SERVICES PAGE                                                 -->
+<!-- ============================================================ -->
+<section id="services" class="page-section">
+  <div class="section-inner">
+
+    <!-- Page Header -->
+    <div class="page-header fade-in">
+      <p class="page-label">Services</p>
+      <h1>Services</h1>
+      <div class="header-line"></div>
+    </div>
+
+    <!-- Lead Text -->
+    <div class="service-lead fade-in">
+      <p>キャラクターの企画・開発から世界観の整理、商品・サービス、体験、コミュニケーションへの展開まで、一貫した視点で伴走します。</p>
+      <br>
+      <p>ブランドやキャラクターの想いを丁寧にひもときながら、無理なく広がり、長く育ち続ける形を一緒に考えます。</p>
+      <br>
+      <p>これまでの実務経験をもとに全体を俯瞰し、長く続いていく形づくりを支援します。</p>
+    </div>
+
+    <!-- このような方に -->
+    <div class="target-section fade-in">
+      <p class="section-label">For You</p>
+      <h2 class="section-title">このような方に</h2>
+
+      <div class="target-grid">
+
+        <div class="target-group">
+          <h4>Brand &amp; Identity</h4>
+          <ul class="target-list">
+            <li>ブランディングと言われても、何から始めればよいか分からない</li>
+            <li>自社や商品の魅力を、どう言葉にすればよいか分からない</li>
+            <li>自分たちらしさをどう表現すればよいか迷っている</li>
+            <li>ブランドの方向性やコンセプトを整理したい</li>
+            <li>他社との差別化が難しい</li>
+          </ul>
+        </div>
+
+        <div class="target-group">
+          <h4>Character Development</h4>
+          <ul class="target-list">
+            <li>キャラクターを作りたいが、どのように考えればよいか分からない</li>
+            <li>キャラクターを作ったが、その後の展開に悩んでいる</li>
+            <li>すでにキャラクターがいるが、活かし方に悩んでいる</li>
+          </ul>
+        </div>
+
+        <div class="target-group">
+          <h4>Experience &amp; Expansion</h4>
+          <ul class="target-list">
+            <li>キャラクターやブランドを商品・サービスや体験に展開したい</li>
+            <li>世界観をどのように形にすればよいか分からない</li>
+            <li>一貫性のある展開をしていきたい</li>
+          </ul>
+        </div>
+
+        <div class="target-group">
+          <h4>Long-term Growth</h4>
+          <ul class="target-list">
+            <li>長く愛されるブランドを育てていきたい</li>
+            <li>相談しながら進めたい</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- みなさんが手にする未来 -->
+    <div class="future-section fade-in">
+      <p class="section-label">Outcome</p>
+      <h2 class="section-title">みなさんが手にする未来</h2>
+
+      <div class="future-grid">
+        <div class="future-card">
+          <div class="future-icon"></div>
+          <p>ブランドの軸が明確になります</p>
+        </div>
+        <div class="future-card">
+          <div class="future-icon"></div>
+          <p>自分たちらしい表現が見えてきます</p>
+        </div>
+        <div class="future-card">
+          <div class="future-icon"></div>
+          <p>キャラクターがブランドの中で役割を持ちます</p>
+        </div>
+        <div class="future-card">
+          <div class="future-icon"></div>
+          <p>世界観に一貫性が生まれます</p>
+        </div>
+        <div class="future-card">
+          <div class="future-icon"></div>
+          <p>商品や体験へ自然につながっていきます</p>
+        </div>
+        <div class="future-card">
+          <div class="future-icon"></div>
+          <p>ブランドに関わる判断がしやすくなります</p>
+        </div>
+        <div class="future-card">
+          <div class="future-icon"></div>
+          <p>長く育てていける土台が整います</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="page-divider"><div class="divider-dot"></div></div>
+
+<!-- ============================================================ -->
+<!-- WORKS PAGE                                                    -->
+<!-- ============================================================ -->
+<section id="works" class="page-section" style="background:var(--bg-white)">
+  <div class="section-inner">
+
+    <div class="page-header fade-in">
+      <p class="page-label">Portfolio</p>
+      <h1>Works</h1>
+      <div class="header-line"></div>
+    </div>
+
+    <div class="fade-in">
+      <div class="works-filter">
+        <button class="active">All</button>
+        <button>Character Branding</button>
+        <button>Brand Strategy</button>
+        <button>Experience Design</button>
+        <button>Consultation</button>
+      </div>
+
+      <div class="works-full-grid">
+        <div class="works-full-card">
+          <div class="works-full-thumb">Project Image</div>
+          <div class="works-full-body">
+            <p class="wf-cat">Character Branding</p>
+            <h3>キャラクター世界観の設計と展開</h3>
+            <p>ブランドの想いをキャラクターの世界観として構築し、商品・体験へと一貫して展開したプロジェクト。</p>
+          </div>
+        </div>
+        <div class="works-full-card">
+          <div class="works-full-thumb">Project Image</div>
+          <div class="works-full-body">
+            <p class="wf-cat">Brand Strategy</p>
+            <h3>ブランドコンセプトの再整理</h3>
+            <p>自分たちらしさを言語化し、ブランドの軸となるコンセプトを整理。一貫した表現の基盤を構築。</p>
+          </div>
+        </div>
+        <div class="works-full-card">
+          <div class="works-full-thumb">Project Image</div>
+          <div class="works-full-body">
+            <p class="wf-cat">Experience Design</p>
+            <h3>体験型ブランディングの支援</h3>
+            <p>キャラクターの世界観を起点に、商品・サービス・体験をつなぐ展開をサポート。</p>
+          </div>
+        </div>
+        <div class="works-full-card">
+          <div class="works-full-thumb">Project Image</div>
+          <div class="works-full-body">
+            <p class="wf-cat">Consultation</p>
+            <h3>キャラクター活用のご相談</h3>
+            <p>既存キャラクターの活かし方を一緒に整理し、育て続ける仕組みづくりを伴走支援。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="page-divider"><div class="divider-dot"></div></div>
+
+<!-- ============================================================ -->
+<!-- VOICE PAGE                                                    -->
+<!-- ============================================================ -->
+<section id="voice" class="page-section">
+  <div class="section-inner">
+
+    <div class="page-header fade-in">
+      <p class="page-label">Testimonials</p>
+      <h1>Voice</h1>
+      <div class="header-line"></div>
+    </div>
+
+    <div class="content-narrow fade-in" style="text-align:center;margin-bottom:64px">
+      <p class="body-text" style="color:var(--text-navy-light)">
+        ご一緒させていただいたお客さまからの声をご紹介します。
+      </p>
+    </div>
+
+    <div class="voice-grid fade-in">
+      <div class="voice-card">
+        <p class="voice-text">自分たちの想いをうまく言葉にできなかったのですが、丁寧にひもといてくださり、「これだ」と思えるコンセプトが見つかりました。</p>
+        <div class="voice-author">
+          ご担当者さま
+          <span>食品メーカー / ブランド戦略担当</span>
+        </div>
+      </div>
+      <div class="voice-card">
+        <p class="voice-text">キャラクターをつくった後、どう活かしていくかが分からなかったのですが、世界観を起点に展開の道筋が見えるようになりました。</p>
+        <div class="voice-author">
+          ご担当者さま
+          <span>地方自治体 / 広報担当</span>
+        </div>
+      </div>
+      <div class="voice-card">
+        <p class="voice-text">テーマパークでの豊富なご経験から、体験としてのブランドづくりを一緒に考えてくださるのがとても心強かったです。</p>
+        <div class="voice-author">
+          ご担当者さま
+          <span>アパレル企業 / 商品企画</span>
+        </div>
+      </div>
+      <div class="voice-card">
+        <p class="voice-text">単にキャラクターをデザインするだけでなく、ブランド全体の視点で整理してくださるので、社内の方向性が統一できました。</p>
+        <div class="voice-author">
+          ご担当者さま
+          <span>IT企業 / マーケティング部門</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="page-divider"><div class="divider-dot"></div></div>
+
+<!-- ============================================================ -->
+<!-- CONTACT PAGE                                                  -->
+<!-- ============================================================ -->
+<section id="contact" class="page-section" style="background:var(--bg-white)">
+  <div class="section-inner">
+
+    <div class="page-header fade-in">
+      <p class="page-label">Get in Touch</p>
+      <h1>Contact</h1>
+      <div class="header-line"></div>
+    </div>
+
+    <div class="contact-layout fade-in">
+
+      <div class="contact-text">
+        <h3>お気軽にご相談ください</h3>
+        <p>ブランドやキャラクターに関するお悩みやご相談、<br>お仕事のご依頼など、まずはお気軽にお問い合わせください。</p>
+        <p>初回のご相談は無料です。<br>お話を伺いながら、一緒に最適な進め方を考えます。</p>
+
+        <ul class="contact-info-list">
+          <li>
+            <span class="ci-label">Email</span>
+            <span>info@littledoors.jp</span>
+          </li>
+          <li>
+            <span class="ci-label">Response</span>
+            <span>2営業日以内にご返信いたします</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="contact-form">
+        <div class="form-group">
+          <label>お名前 *</label>
+          <input type="text" placeholder="山田 太郎">
+        </div>
+        <div class="form-group">
+          <label>会社名</label>
+          <input type="text" placeholder="株式会社〇〇">
+        </div>
+        <div class="form-group">
+          <label>メールアドレス *</label>
+          <input type="email" placeholder="example@company.com">
+        </div>
+        <div class="form-group">
+          <label>ご相談内容</label>
+          <select>
+            <option>お選びください</option>
+            <option>ブランディングについて</option>
+            <option>キャラクターの企画・開発</option>
+            <option>キャラクターの活用・展開</option>
+            <option>その他のご相談</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>メッセージ</label>
+          <textarea placeholder="ご相談内容をお聞かせください"></textarea>
+        </div>
+        <button class="form-submit">送信する →</button>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <p class="footer-logo">Little Doors</p>
+  <nav class="footer-nav">
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#works">Works</a>
+    <a href="#voice">Voice</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <p class="footer-copy">&copy; 2026 Little Doors. All rights reserved.</p>
+</footer>
+
+<!-- ===== Scroll Animation ===== -->
+<script>
+  // Hamburger menu
+  const subHamburger = document.getElementById('subHamburger');
+  const subNavInner = document.getElementById('subNavInner');
+  subHamburger.addEventListener('click', () => {
+    subHamburger.classList.toggle('open');
+    subNavInner.classList.toggle('open');
+  });
+  subNavInner.querySelectorAll('a:not(.logo)').forEach(link => {
+    link.addEventListener('click', () => {
+      subHamburger.classList.remove('open');
+      subNavInner.classList.remove('open');
+    });
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Active nav link on scroll
+  const sections = document.querySelectorAll('.page-section');
+  const navLinks = document.querySelectorAll('.page-nav a:not(.logo)');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(section => {
+      const top = section.offsetTop - 80;
+      if (pageYOffset >= top) current = section.getAttribute('id');
+    });
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+    });
+  });
+</script>
+
+</body>
+</html>
